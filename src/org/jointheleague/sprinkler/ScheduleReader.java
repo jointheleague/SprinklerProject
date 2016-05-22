@@ -1,5 +1,10 @@
 package org.jointheleague.sprinkler;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.ParseException;
@@ -15,11 +20,9 @@ import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.dom4j.Attribute;
-import org.dom4j.Document;
-import org.dom4j.DocumentException;
-import org.dom4j.Element;
-import org.dom4j.io.SAXReader;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class ScheduleReader {
 
@@ -33,7 +36,7 @@ public class ScheduleReader {
 	private int cachedVersion = -1;
 	private List<GpioAction> cachedActionList;
 
-	public static void main(String[] args) throws DocumentException {
+	public static void main(String[] args) {
 
 		ScheduleReader reader = new ScheduleReader();
 		// URL url = reader.getClass().getResource("Schedules.xml");
@@ -44,18 +47,38 @@ public class ScheduleReader {
 			logger.log(Level.SEVERE, e.getMessage());
 			return;
 		}
-		reader.read(url);
+		reader.parseSchedule(url);
 		List<GpioAction> list = reader.getActionList();
 		for (GpioAction action : list) {
 			System.out.println(action);
 		}
 	}
 
-	public void read(URL url) throws DocumentException {
-		SAXReader reader = new SAXReader();
-		Document document = reader.read(url);
-		Element root = document.getRootElement();
-		String versionString = root.attributeValue("version");
+	private static String readAll(Reader rd) throws IOException {
+		StringBuilder sb = new StringBuilder();
+		int cp;
+		while ((cp = rd.read()) != -1) {
+			sb.append((char) cp);
+		}
+		return sb.toString();
+	}
+
+	public JSONObject read(URL url) throws IOException, JSONException {
+		InputStream is = url.openStream();
+		try {
+			BufferedReader rd = new BufferedReader(new InputStreamReader(is));
+			String jsonText = readAll(rd);
+			JSONObject json = new JSONObject(jsonText);
+			return json;
+		} finally {
+			is.close();
+		}
+	}
+
+	public void parseSchedule(URL url) {
+
+		JSONObject document = read(url);
+		String versionString = document.getString("version");
 		if (versionString == null) {
 			return;
 		}
@@ -68,16 +91,14 @@ public class ScheduleReader {
 			cachedVersion = version;
 			cachedActionList = new ArrayList<GpioAction>();
 			now.setTimeInMillis(TestTime.currentTimeMillis());
-			for (@SuppressWarnings("unchecked")
-			Iterator<Element> i = root.elementIterator("schedule"); i.hasNext();) {
-				Element schedule = i.next();
-				for (int day : getDaysOfWeek(schedule)) {
+			JSONArray schedules = document.getJSONArray("schedules");
+			for (int i = 0; i < schedules.length(); i++ ) {
+				for (int day : getDaysOfWeek((JSONObject) schedules.get(i))) {
 					if (day == 0) { // value 0 used for erroneous day
 						continue;
 					}
 					for (@SuppressWarnings("unchecked")
-					Iterator<Element> j = schedule.elementIterator("action"); j
-							.hasNext();) {
+					Iterator<Element> j = schedule.elementIterator("action"); j.hasNext();) {
 						Element action = j.next();
 						try {
 							cachedActionList.add(createGpioAction(day, action));
@@ -138,12 +159,12 @@ public class ScheduleReader {
 		return new GpioAction(on, off, time);
 	}
 
-	private int[] getDaysOfWeek(Element schedule) {
-		Attribute attr = schedule.attribute("day_of_week");
+	private int[] getDaysOfWeek(JSONObject schedule) throws JSONException {
+		JSONObject attr = (JSONObject) schedule.get("day_of_week");
 		if (attr == null) {
 			return null;
 		}
-		String[] days = attr.getValue().trim().split(", *");
+		String[] days = attr.toString().trim().split(", *");
 		int[] result = new int[days.length];
 		for (int i = 0; i < days.length; i++) {
 			try {

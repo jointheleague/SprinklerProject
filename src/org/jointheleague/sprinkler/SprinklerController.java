@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.dom4j.DocumentException;
+import org.json.JSONException;
 
 /**
  * A SprinklerController instance regularly checks to see if there are updates
@@ -73,11 +73,12 @@ public class SprinklerController {
 					runner = new ScheduleRunner(actions);
 					runner.start();
 				}
-			} catch (DocumentException e) {
+				Thread.sleep(SCHEDULE_CHECK_PERIOD / TestTime.TIME_FACTOR);
+			} catch (IOException e) {
 				logger.log(Level.WARNING, e.getMessage());
-				// Try again later
+			} catch (JSONException e) {
+				logger.log(Level.WARNING, e.getMessage());
 			}
-			Thread.sleep(SCHEDULE_CHECK_PERIOD / TestTime.TIME_FACTOR);
 		}
 
 	}
@@ -85,10 +86,11 @@ public class SprinklerController {
 	private URL getURL() throws MalformedURLException {
 		IdKeeper idKeeper = new IdKeeper();
 		try {
-			File f = new File("/home/pi/schedules/s" + idKeeper.getId() + ".xml");
+			File f = new File("/home/pi/schedules/s" + idKeeper.getId()
+					+ ".xml");
 			return f.toURI().toURL();
-//			return new URL("http://sprinklerwiz.appspot.com/schedules/s"
-//					+ idKeeper.getId() + ".xml");
+			// return new URL("http://sprinklerwiz.appspot.com/schedules/s"
+			// + idKeeper.getId() + ".xml");
 		} catch (IOException e) {
 			return null;
 		}
