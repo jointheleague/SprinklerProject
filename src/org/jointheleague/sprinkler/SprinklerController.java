@@ -59,20 +59,20 @@ public class SprinklerController {
 		ScheduleReader reader = new ScheduleReader();
 		URL url = getURL();
 		System.out.println(url);
-		int lastRead = -1;
+		// int lastRead = -1;
 		ScheduleRunner runner = null;
 		while (true) {
 			try {
 				reader.read(url);
-				if (reader.getVersion() > lastRead) {
-					if (runner != null) {
-						runner.exitGracefully();
-					}
-					List<GpioAction> actions = reader.getActionList();
-					lastRead = reader.getVersion();
-					runner = new ScheduleRunner(actions);
-					runner.start();
+				// if (reader.getVersion() > lastRead) {
+				if (runner != null) {
+					runner.exitGracefully();
 				}
+				List<GpioAction> actions = reader.getActionList();
+				// lastRead = reader.getVersion();
+				runner = new ScheduleRunner(actions);
+				runner.start();
+				// }
 				Thread.sleep(SCHEDULE_CHECK_PERIOD / TestTime.TIME_FACTOR);
 			} catch (IOException e) {
 				logger.log(Level.WARNING, e.getMessage());
@@ -87,7 +87,7 @@ public class SprinklerController {
 		IdKeeper idKeeper = new IdKeeper();
 		try {
 			File f = new File("/home/pi/schedules/s" + idKeeper.getId()
-					+ ".xml");
+					+ ".json");
 			return f.toURI().toURL();
 			// return new URL("http://sprinklerwiz.appspot.com/schedules/s"
 			// + idKeeper.getId() + ".xml");

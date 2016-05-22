@@ -1,13 +1,13 @@
 package org.jointheleague.sprinkler;
 
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Set;
 
 public class GpioAction implements Comparable<GpioAction>{
 
-	private final int[] headsOn;
-	private final int[] headsOff;
+	private final Set<Integer> headsOn;
+	private final Set<Integer> headsOff;
 	private final Calendar time;
 	/**
 	 * Constructor
@@ -15,7 +15,7 @@ public class GpioAction implements Comparable<GpioAction>{
 	 * @param headsOff an int array of the indices of the heads to turn off
 	 * @param time the time of the action
 	 */
-	public GpioAction(int[] headsOn, int[] headsOff, Calendar time) {
+	public GpioAction(Set<Integer> headsOn, Set<Integer> headsOff, Calendar time) {
 		this.headsOn = headsOn;
 		this.headsOff = headsOff;
 		this.time = time;
@@ -25,19 +25,19 @@ public class GpioAction implements Comparable<GpioAction>{
 	public int compareTo(GpioAction o) {
 		return time.compareTo(o.time);
 	}
-
+ 
 	/**
 	 * Get the array of indices of the heads to turn on.
-	 * @return the array of heads to turn on.
+	 * @return the set of heads to turn on.
 	 */
-	public int[] getHeadsOn() {
+	public Set<Integer> getHeadsOn() {
 		return headsOn;
 	}
 	/**
 	 * Get the array of indices of the heads to turn off.
-	 * @return the array of heads to turn off.
+	 * @return the set of heads to turn off.
 	 */
-	public int[] getHeadsOff() {
+	public Set<Integer> getHeadsOff() {
 		return headsOff;
 	}
 	/**
@@ -58,12 +58,29 @@ public class GpioAction implements Comparable<GpioAction>{
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append(" off = ");
-		sb.append(Arrays.toString(headsOff));
-		sb.append(" on = ");
-		sb.append(Arrays.toString(headsOn));
-		sb.append(" time = ");
+		sb.append("[off = [");
+		boolean first = true;
+		for(Integer i: headsOff) {
+			if(!first){
+				sb.append(", ");
+			} else {
+				first = false;
+			}
+			sb.append(i.toString());
+		}
+		sb.append("], on = [");
+		first = true;
+		for(Integer i: headsOn) {
+			if(!first){
+				sb.append(", ");
+			} else {
+				first = false;
+			}
+			sb.append(i.toString());
+		}
+		sb.append("], time = ");
 		sb.append(new Date(getTimeOfAction()));
+		sb.append("]");
 		return sb.toString();
 		
 	}

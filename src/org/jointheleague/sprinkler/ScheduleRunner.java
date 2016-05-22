@@ -2,6 +2,7 @@ package org.jointheleague.sprinkler;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -51,13 +52,13 @@ public class ScheduleRunner extends Thread {
 //								sleepTime);
 						Thread.sleep(sleepTime / TestTime.TIME_FACTOR);
 					}
-					int[] head = action.getHeadsOff();
-					for (int i = 0; i < head.length; i++) {
-						 myLeds[i].setState(PinState.HIGH);
+					Set<Integer> head = action.getHeadsOff();
+					for (Integer i: head) {
+						 myLeds[i.intValue()].setState(PinState.HIGH);
 					}
 					head = action.getHeadsOn();
-					for (int i = 0; i < head.length; i++) {
-						 myLeds[i].setState(PinState.LOW);
+					for (Integer i: head) {
+						 myLeds[i.intValue()].setState(PinState.LOW);
 					}
 //					logger.log(Level.INFO, "{0}: {1}", new Object[] {
 //							new Date(TestTime.currentTimeMillis()), action });

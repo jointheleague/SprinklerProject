@@ -1,0 +1,14 @@
+{"schedule":[
+ {"Zone":"1",
+  "Wednesday":{"power":"on","start":"5:40 AM","end":"5:45 AM"},
+  "Saturday":{"power":"on","start":"5:40 AM","end":"5:45 AM"},
+  },
+  {"Zone": "2",
+   "Wednesday":{"power":"on","start":"5:45 AM","end":"5:50 AM"},
+   "Saturday":{"power":"on","start":"5:45 AM","end":"5:50 AM"},
+  },
+  {"Zone": "5",
+   "Wednesday":{"power":"on","start":"11:55 PM","end":"11:59 PM"},
+   "Saturday":{"power":"on","start":"11:55 PM","end":"11:59 PM"},
+  }
+ ]}
