@@ -1,0 +1,16 @@
+<template name="main">
+
+  {{> loginButtons}}
+  <div align="center">
+    <h1>Welcome to {{name}}</h1>
+  </div>
+
+  {{#if currentUser}}
+  <button id="MakeNew" class="btn btn-primary">New Cal</button>
+  {{> CalSelector}}
+  {{else}}
+  <div align="center">
+    <h3>You need to sign up or sign in to use {{name}}</h3>
+  </div>
+  {{/if}}
+</template>

@@ -1,0 +1,18 @@
+<template name="CalSelector">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Name (Click to change settings)</th>
+        <th>ID</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each currentLocationsIteration}}
+        <tr class='table-row' data-id={{sID}} data-name="{{sID}}">
+          <td class="col-md-2">{{name}}</td>
+          <td class="col-md-2">{{sID}}</td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</template>

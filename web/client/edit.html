@@ -1,0 +1,76 @@
+<template name="edit">
+  {{> loginButtons}}
+  <form class="" role="form">
+    <div class="form-group form-inline">
+      <input type="text" id="sIDEdit" class="form-control" placeholder="ID" value={{CurrentData.sID}} >
+    </div>
+    <div class="form-group form-inline">
+      <input type="text" id="nameEdit" class="form-control" placeholder="Name" value={{CurrentData.name}} >
+    </div>
+    <div class="form-group form-inline">
+      <input type="checkbox" id="MondayCheckEdit" value="{{CurrentData.monday.power}}">
+      <label>Monday: </label>
+      <label for="mondayStartEdit">From:</label>
+      <input id="mondayStartEdit" class="control-label timepicker form-control" type="text" value="{{CurrentData.monday.start}}">
+      <label for="mondayEndEdit">To: </label>
+      <input id="mondayEndEdit" class="timepicker control-label form-control" type="text" value="{{CurrentData.monday.end}}">
+    </div>
+
+    <div class="form-group form-inline">
+      <input type="checkbox" id="TuesdayCheckEdit">
+      <label>Tuesday: </label>
+      <label for="TuesdayStartEdit">From:</label>
+      <input id="TuesdayStartEdit" class="control-label timepicker form-control" type="text">
+      <label for="TuesdayEndEdit">To: </label>
+      <input id="TuesdayEndEdit" class="timepicker control-label form-control" type="text">
+    </div>
+
+    <div class="form-group form-inline">
+      <input type="checkbox" id="WednesdayCheckEdit">
+      <label>Wednesday: </label>
+      <label for="WednesdayStartEdit">From:</label>
+      <input id="WednesdayStartEdit" class="control-label timepicker form-control" type="text">
+      <label for="WednesdayEndEdit">To: </label>
+      <input id="WednesdayEndEdit" class="timepicker control-label form-control" type="text">
+    </div>
+
+    <div class="form-group form-inline">
+      <input type="checkbox" id="ThursdayCheckEdit">
+      <label>Thursday: </label>
+      <label for="ThursdayStartEdit">From:</label>
+      <input id="ThursdayStartEdit" class="control-label timepicker form-control" type="text">
+      <label for="ThursdayEndEdit">To: </label>
+      <input id="ThursdayEndEdit" class="timepicker control-label form-control" type="text">
+    </div>
+
+    <div class="form-group form-inline">
+      <input type="checkbox" id="FridayCheckEdit">
+      <label>Friday: </label>
+      <label for="FridayStartEdit">From:</label>
+      <input id="FridayStartEdit" class="control-label timepicker form-control" type="text">
+      <label for="FridayEndEdit">To: </label>
+      <input id="FridayEndEdit" class="timepicker control-label form-control" type="text">
+    </div>
+
+    <div class="form-group form-inline">
+      <input type="checkbox" id="SaturdayCheckEdit">
+      <label>Saturday: </label>
+      <label for="SaturdayStartEdit">From:</label>
+      <input id="SaturdayStartEdit" class="control-label timepicker form-control" type="text">
+      <label for="SaturdayEndEdit">To: </label>
+      <input id="SaturdayEndEdit" class="timepicker control-label form-control" type="text">
+    </div>
+
+    <div class="form-group form-inline">
+      <input type="checkbox" id="SundayCheckEdit">
+      <label>Sunday: </label>
+      <label for="SundayStartEdit">From:</label>
+      <input id="SundayStartEdit" class="control-label timepicker form-control" type="text">
+      <label for="SundayEndEdit">To: </label>
+      <input id="SundayEndEdit" class="timepicker control-label form-control" type="text">
+    </div>
+    <div class="form-group form inline">
+      <input type="button" id="UpdateEdit" value="Update" class="btn btn-default">
+    </div>
+  </form>
+</template>

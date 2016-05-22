@@ -1,0 +1,76 @@
+<template name="cal">
+  {{> loginButtons}}
+  <form class="" role="form">
+    <div class="form-group form-inline">
+      <input type="text" class="form-control" id="sID" placeholder="ID" >
+    </div>
+    <div class="form-group form-inline">
+      <input type="text" class="form-control" id="name" placeholder="Name" >
+    </div>
+    <div class="form-group form-inline">
+      <input type="checkbox" id="MondayCheck">
+      <label>Monday: </label>
+      <label for="mondayStart">From:</label>
+      <input id="mondayStart" class="control-label form-control timepicker" type="text">
+      <label for="mondayEnd">To: </label>
+      <input id="mondayEnd" class="control-label form-control timepicker" type="text">
+    </div>
+
+    <div class="form-group form-inline">
+      <input type="checkbox" id="TuesdayCheck">
+      <label>Tuesday: </label>
+      <label for="TuesdayStart">From:</label>
+      <input id="TuesdayStart" class="control-label form-control timepicker" type="text">
+      <label for="TuesdayEnd">To: </label>
+      <input id="TuesdayEnd" class="control-label form-control timepicker" type="text">
+    </div>
+
+    <div class="form-group form-inline">
+      <input type="checkbox" id="WednesdayCheck">
+      <label>Wednesday: </label>
+      <label for="WednesdayStart">From:</label>
+      <input id="WednesdayStart" class="control-label form-control timepicker" type="text">
+      <label for="WednesdayEnd">To: </label>
+      <input id="WednesdayEnd" class="control-label form-control timepicker" type="text">
+    </div>
+
+    <div class="form-group form-inline">
+      <input type="checkbox" id="ThursdayCheck">
+      <label>Thursday: </label>
+      <label for="ThursdayStart">From:</label>
+      <input id="ThursdayStart" class="control-label form-control timepicker" type="text">
+      <label for="ThursdayEnd">To: </label>
+      <input id="ThursdayEnd" class="control-label form-control timepicker" type="text">
+    </div>
+
+    <div class="form-group form-inline">
+      <input type="checkbox" id="FridayCheck">
+      <label>Friday: </label>
+      <label for="FridayStart">From:</label>
+      <input id="FridayStart" class="control-label form-control timepicker" type="text">
+      <label for="FridayEnd">To: </label>
+      <input id="FridayEnd" class="control-label form-control timepicker" type="text">
+    </div>
+
+    <div class="form-group form-inline">
+      <input type="checkbox" id="SaturdayCheck">
+      <label>Saturday: </label>
+      <label for="SaturdayStart">From:</label>
+      <input id="SaturdayStart" class="control-label form-control timepicker" type="text">
+      <label for="SaturdayEnd">To: </label>
+      <input id="SaturdayEnd" class="control-label form-control timepicker" type="text">
+    </div>
+
+    <div class="form-group form-inline">
+      <input type="checkbox" id="SundayCheck">
+      <label>Sunday: </label>
+      <label for="SundayStart">From:</label>
+      <input id="SundayStart" class="control-label form-control timepicker" type="text">
+      <label for="SundayEnd">To: </label>
+      <input id="SundayEnd" class="control-label form-control timepicker" type="text">
+    </div>
+    <div class="form-group form inline">
+      <input type="button" id="Update" class="btn btn-default" value="Create">
+    </div>
+  </form>
+</template>
